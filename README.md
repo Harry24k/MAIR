@@ -106,6 +106,10 @@ rmodel.eval_rob_accuracy_pgd(test_loader, eps, alpha, steps)  # PGD accuracy
 
 
 
+#### Please refer to [demo](https://github.com/Harry24k/MAIR/blob/main/demos/Train%20and%20Evaluation.ipynb) for details.
+
+
+
 ## Pre-trained models
 
 Here are pre-trained 12 models:
