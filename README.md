@@ -118,4 +118,19 @@ In each folder, we upload four different files:
 * `init.pth`: model at the start of epoch.
 * `best.pth`: best model selected by the argment `save_best` in `trainer.fit`.
 
+To load model, 
+
+```python
+rmodel.load_dict('./models/.../best.pth')
+```
+
 We are excited to share modes with the community, but we've run into a storage limitation on Google Drive. Any help would be greatly appreciated!
+
+
+
+
+## Future work
+- [ ] Merge measures.
+- [ ] Generalize attacks gathered from [torchattacks](https://github.com/Harry24k/adversarial-attacks-pytorch).
+- [ ] ...
+
