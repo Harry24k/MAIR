@@ -55,7 +55,7 @@ model = ...
 rmodel = mair.RobModel(model, n_classes=10).cuda()
 ```
 
-**Step2.** Setup trainer as follows:
+**Step2.** Set trainer as follows:
 
 ```python
 from mair.defenses import AT
