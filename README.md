@@ -112,9 +112,7 @@ rmodel.eval_rob_accuracy_pgd(test_loader, eps, alpha, steps)  # PGD accuracy
 
 ## Pre-trained models
 
-Here are pre-trained 12 models:
-
-https://drive.google.com/drive/folders/1JoMWfAqXuvROyBbPX1KxPTro7i8LCNLo
+Here are pre-trained 12 models: [URL](https://drive.google.com/drive/folders/1JoMWfAqXuvROyBbPX1KxPTro7i8LCNLo).
 
 In each folder, we upload four different files:
 
