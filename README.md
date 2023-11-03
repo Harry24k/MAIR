@@ -62,12 +62,12 @@ from mair.defenses import AT
 # Set adversarial training method: [Strandard, AT, TRADES, MART].
 trainer = AT(rmodel, eps=EPS, alpha=ALPHA, steps=STEPS)
 # Set recording information.
-trainer.record_rob(train_loader, test_loader, eps=EPS, alpha=2/255, steps=10, std=0.1)
+trainer.record_rob(train_loader, val_loader, eps=EPS, alpha=2/255, steps=10, std=0.1)
 # Set detail training methods.
 trainer.setup(optimizer="SGD(lr=0.1, momentum=0.9)",
               scheduler="Step(milestones=[100, 150], gamma=0.1)",
               scheduler_type="Epoch",
-              minimizer="AWP(rho=5e-3)",
+              minimizer=None, # or "AWP(rho=5e-3)",
               n_epochs=200
              )
 ```
@@ -79,6 +79,8 @@ trainer.fit(train_loader=train_loader,
 			n_epochs=200,
             save_path='./models/', 
             save_best={"Clean(Val)":"HBO", "PGD(Val)":"HB"},
+            # 'save_best': model with high PGD are chosen, 
+            # while in similar cases, model with high Clean are selected.
             save_type="Epoch", 
             save_overwrite=False, 
             record_type="Epoch")
@@ -109,11 +111,11 @@ Here are pre-trained 12 models:
 
 https://drive.google.com/drive/folders/1JoMWfAqXuvROyBbPX1KxPTro7i8LCNLo
 
-In each folder, I upload four different files:
+In each folder, we upload four different files:
 
 * `log.txt`: training log during training.
 * `last.pth`: model at the end of epoch.
 * `init.pth`: model at the start of epoch.
 * `best.pth`: best model selected by the argment `save_best` in `trainer.fit`.
 
-I'm excited to share modes with the community, but I've run into a storage limitation on Google Drive. Any help would be greatly appreciated!
+We are excited to share modes with the community, but we've run into a storage limitation on Google Drive. Any help would be greatly appreciated!

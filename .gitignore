@@ -160,5 +160,11 @@ cython_debug/
 #.idea/
 
 
+__*
+__*/*
 /data/*
 /logo/*
+/demos/_*
+/demos/data/*
+/demos/models/*
+/mair/utils/datasets/*
