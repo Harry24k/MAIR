@@ -83,7 +83,8 @@ trainer.fit(train_loader=train_loader,
             # while in similar cases, model with high Clean are selected.
             save_type="Epoch", 
             save_overwrite=False, 
-            record_type="Epoch")
+            record_type="Epoch"
+           )
 ```
 
 #### How to evaluate a model?
