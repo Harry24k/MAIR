@@ -38,7 +38,7 @@ _Citation:_
 
 ### Installation
 
-`pip install git+https://github.com/Harry24k/MAIR`
+`pip install git+https://github.com/Harry24k/MAIR.git`
 
 
 ### Usage
