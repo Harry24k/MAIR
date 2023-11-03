@@ -3,7 +3,7 @@
   <img src="images/logo_wide.png?raw=true" width="467" title="ART logo">
 </p>
 
-<h2 align="center">Improve and Evaluate Adversarial Robustness</h2>
+<h2 align="center">Improve and Evaluate Robustness</h2>
 
 <p>
   <a href="https://github.com/Harry24k/MAIR/blob/master/LICENSE"><img alt="MIT License" src="https://img.shields.io/github/license/Harry24k/MAIR?&color=brightgreen" /></a>
@@ -13,7 +13,7 @@
 
 > "Make your AI Robust."
 
-_MAIR_  is a PyTorch-based adversarial training framework. The goal of *MAIR* is to (1) provide an easy implementation and reproduction of adversarial training methods and (2) make it easier to evaluate the adversarial robustness of deep learning models.
+_MAIR_  is a PyTorch-based adversarial training framework. The goal of MAIR is to (1) _provide an easy implementation of adversarial training methods_ and (2) _make it easier to evaluate the adversarial robustness of deep learning models_.
 
 Adversarial training has become the de-facto standard method for improving the robustness of models against adversarial examples. However, during the writing of [our paper](https://openreview.net/forum?id=AGVBqJuL0T), we realized that there is no framework integrating adversarial training methods. Therefore, to promote reproducibility and transparency in the field of deep learning, we integrated the algorithms, tools, and pre-trained models. 
 
