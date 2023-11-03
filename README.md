@@ -6,7 +6,7 @@
 <h2 align="center">Improve and Evaluate Robustness</h2>
 
 <p>
-  <a href="https://github.com/Harry24k/MAIR/LICENSE"><img alt="MIT License" src="https://img.shields.io/github/license/Harry24k/MAIR?&color=brightgreen" /></a>
+  <a href="https://github.com/Harry24k/MAIR/blob/main/LICENSE"><img alt="MIT License" src="https://img.shields.io/github/license/Harry24k/MAIR?&color=brightgreen" /></a>
   <a href="https://github.com/Harry24k/MAIR/releases"><img alt="Latest Release" src="https://img.shields.io/github/release/Harry24k/MAIR.svg?&color=blue" /></a>
   <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
 </p>
