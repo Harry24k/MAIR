@@ -38,7 +38,7 @@ _Citation:_
 
 ### Installation
 
-`pip install git+https://github.com/psf/black`
+`pip install git+https://github.com/Harry24k/MAIR`
 
 
 ### Usage
