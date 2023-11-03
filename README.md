@@ -75,8 +75,8 @@ trainer.setup(optimizer="SGD(lr=0.1, momentum=0.9)",
 **Step3.** Fit model as follows:
 
 ```python
-trainer.fit(train_loader=train_loader, 
-			n_epochs=200,
+trainer.fit(train_loader=train_loader,
+            n_epochs=200,
             save_path='./models/', 
             save_best={"Clean(Val)":"HBO", "PGD(Val)":"HB"},
             # 'save_best': model with high PGD are chosen, 
