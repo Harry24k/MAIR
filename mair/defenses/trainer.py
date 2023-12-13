@@ -104,17 +104,16 @@ class Trainer:
             start_iter = 0
 
         # Print train information
-        if record_type:
-            self.rm.print("[%s]" % self.__class__.__name__)
-            self.rm.print("Training Information.")
-            self.rm.print("-Epochs: %s" % n_epochs)
-            self.rm.print("-Optimizer: %s" % self.optimizer)
-            self.rm.print("-Scheduler: %s" % self.scheduler)
-            self.rm.print("-Minmizer: %s" % self.minimizer)
-            self.rm.print("-Save Path: %s" % save_path)
-            self.rm.print("-Save Type: %s" % str(save_type))
-            self.rm.print("-Record Type: %s" % str(record_type))
-            self.rm.print("-Device: %s" % self.device)
+        self.rm.print(record_type, "[%s]" % self.__class__.__name__)
+        self.rm.print(record_type, "Training Information.")
+        self.rm.print(record_type, "-Epochs: %s" % n_epochs)
+        self.rm.print(record_type, "-Optimizer: %s" % self.optimizer)
+        self.rm.print(record_type, "-Scheduler: %s" % self.scheduler)
+        self.rm.print(record_type, "-Minmizer: %s" % self.minimizer)
+        self.rm.print(record_type, "-Save Path: %s" % save_path)
+        self.rm.print(record_type, "-Save Type: %s" % str(save_type))
+        self.rm.print(record_type, "-Record Type: %s" % str(record_type))
+        self.rm.print(record_type, "-Device: %s" % self.device)
 
         # Start training
         for epoch in range(start_epoch, n_epochs):

@@ -129,13 +129,13 @@ class RecordManager(object):
 
     def print(self, record_type, str, *args, **kargs):
         if record_type is not None:
-            print(str)
+            print(str, *args, **kargs)
             self.log.append(str)
             self.save_log()
 
     def print_only(self, record_type, str, *args, **kargs):
         if record_type is not None:
-            print(str)
+            print(str, *args, **kargs)
 
     def _add_progress_time(self, dict_record):
         dict_record["s/it"] = np.array(self._progress_times).mean()
