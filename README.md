@@ -30,7 +30,7 @@ _Citation:_
 }
 ```
 
-_Benchmark Notion:_ https://harry24k.notion.site/harry24k/958ba2d81d194c1fa86accf65c1f6b9e?v=e02792dc2e7e47c697ff6b4a2dfe1a54
+_Benchmarks on several adversarially trained models are available at [our notion](https://harry24k.notion.site/harry24k/958ba2d81d194c1fa86accf65c1f6b9e?v=e02792dc2e7e47c697ff6b4a2dfe1a54)._ 
 
 
 
@@ -112,13 +112,13 @@ rmodel.eval_rob_accuracy_pgd(test_loader, eps, alpha, steps)  # PGD accuracy
 
 ## Pre-trained models
 
-Through [our notion](https://harry24k.notion.site/harry24k/958ba2d81d194c1fa86accf65c1f6b9e?v=e02792dc2e7e47c697ff6b4a2dfe1a54), you can directly download our pretrained models.
+Through [our notion](https://harry24k.notion.site/harry24k/958ba2d81d194c1fa86accf65c1f6b9e?v=e02792dc2e7e47c697ff6b4a2dfe1a54), you can directly download and use our pretrained models.
 ```python
 from mair.hub import load_pretrained
 rmodel = load_pretrained("CIFAR10_ResNet18_AT(eps=8, alpha=2, steps=10)", flag='Best', save_dir="./")
 ```
 
-Please refer to [demo](https://github.com/Harry24k/MAIR/blob/main/demos/Load%20Pretrained%20Model.ipynb).
+Please refer to [demo](https://github.com/Harry24k/MAIR/blob/main/demos/Load%20Pretrained%20Model.ipynb) for details.
 
 
 
