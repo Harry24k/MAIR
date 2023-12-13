@@ -143,8 +143,8 @@ We are excited to share modes with the community, but we've run into a storage l
 
 ## Contribution
 
-We welcome contribution to MAIR in many forms :smiley:.
-Especially, we are looking for adding diverse adversarial training methods beyond AT, TRADES, MART.
+We welcome all contribution to MAIR in many forms :smiley:.
+Especially, we are looking for diverse adversarial training methods beyond AT, TRADES, and MART.
 
 
 
