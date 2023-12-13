@@ -10,7 +10,7 @@ with open(path.join(this_directory, "README.md"), encoding="utf-8") as f:
 
 setuptools.setup(
     name="mair",
-    version="1.0.0",
+    version="1.0.1",
     description="MAIR is a PyTorch-based adversarial training framework.",
     author="Harry Kim",
     author_email="24k.harry@gmail.com",

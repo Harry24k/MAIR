@@ -28,6 +28,21 @@ class HistoryMeter(object):
 
     def get_str(self):
         return None
+    
+    def state_dict(self):
+        state_dict = OrderedDict(class_name=self.__class__.__name__,
+                                 name=self.name,
+                                 history=self.history,
+                                 val=self.val,
+                                )
+        return state_dict
+    
+    def load_state_dict(self, state_dict):
+        assert state_dict['class_name'] == self.__class__.__name__
+        self.name = state_dict['name']
+        self.history = state_dict['history']
+        self.val = state_dict['val']
+        return True
 
 
 class IntMeter(HistoryMeter):
@@ -52,11 +67,18 @@ class RecordManager(object):
     def __init__(self):
         self.records = OrderedDict()
         self.record_type = None
-        self.best_records = None
-        self.best_option = None
+        self.save_path = None
         self.log = []  # Add logs since TextIOWrapper cannot saved.
         self.count = 0
 
+        # For best records
+        self.best_records = None
+        self.best_option = None
+        self._LBS = []
+        self._HBS = []
+        self._LBOS = []
+        self._HBOS = []
+        
         self._init_head = False
         self._init_time = datetime.now()
         self._progress_start_time = None
@@ -64,6 +86,9 @@ class RecordManager(object):
         self._progress_times = []
 
         self._spinner = itertools.cycle(["-", "/", "|", "\\"])
+        
+        self._print_form = None
+        self._print_len = None
 
     def __getitem__(self, idx):
         return {key: meter.get(idx) for key, meter in self.records.items()}
@@ -79,28 +104,16 @@ class RecordManager(object):
         self.best_option = best_option
         self.save_path = save_path
         self._init_head = True
-        if record_type is not None:
-            self.print = self.print_and_log
-            self.print_only = print
-        else:
-            self.print = self.print_nothing
-            self.print_only = self.print_nothing
-        if best_option is not None:
-            self.define_best(best_option)
+        if self.best_option is not None:
+            self.define_best(self.best_option)
 
     def update(self, record_type=None, save_path=None, best_option=None):
         self.record_type = record_type
         self.best_option = best_option
         self.save_path = save_path
         self._init_head = True
-        if record_type is not None:
-            self.print = self.print_and_log
-            self.print_only = print
-        else:
-            self.print = self.print_nothing
-            self.print_only = self.print_nothing
-        if best_option is not None:
-            self.define_best(best_option)
+        if self.best_option is not None:
+            self.define_best(self.best_option)
 
     def progress_start(self):
         self._progress_start_time = datetime.now()
@@ -108,28 +121,21 @@ class RecordManager(object):
     def progress_end(self):
         self._progress_end_time = datetime.now()
         t = self._progress_end_time - self._progress_start_time
-        self.print_only(
+        self.print_only(self.record_type,
             "Progress: " + next(self._spinner) + " [" + str(t) + "/it]" + " " * 20,
             end="\r",
         )
         self._progress_times.append(t.total_seconds())
 
-    @staticmethod
-    def print(str, *args, **kargs):
-        NotImplementedError
+    def print(self, record_type, str, *args, **kargs):
+        if record_type is not None:
+            print(str)
+            self.log.append(str)
+            self.save_log()
 
-    @staticmethod
-    def print_nothing(str, *args, **kargs):
-        None
-
-    @staticmethod
-    def print_only(str, *args, **kargs):
-        None
-
-    def print_and_log(self, str, *args, **kargs):
-        print(str)
-        self.log.append(str)
-        self.save_log()
+    def print_only(self, record_type, str, *args, **kargs):
+        if record_type is not None:
+            print(str)
 
     def _add_progress_time(self, dict_record):
         dict_record["s/it"] = np.array(self._progress_times).mean()
@@ -164,8 +170,8 @@ class RecordManager(object):
             self._print_head(dict_print)
 
         # Print row
-        self.print(self._print_form.format(*dict_print.values()))
-        self.print("-" * self._print_len)
+        self.print(self.record_type, self._print_form.format(*dict_print.values()))
+        self.print(self.record_type, "-" * self._print_len)
 
     def _print_head(self, dict_print, slack=3):
         lengths = []
@@ -179,9 +185,9 @@ class RecordManager(object):
 
         text = self._print_form.format(*dict_print.keys())
         self._print_len = len(text)
-        self.print("-" * self._print_len)
-        self.print(text)
-        self.print("=" * self._print_len)
+        self.print(self.record_type, "-" * self._print_len)
+        self.print(self.record_type, text)
+        self.print(self.record_type, "=" * self._print_len)
         self._init_head = False
 
     @staticmethod
@@ -193,10 +199,6 @@ class RecordManager(object):
         return HistoryMeter(key)
 
     def define_best(self, best_option):
-        self._LBS = []
-        self._HBS = []
-        self._LBOS = []
-        self._HBOS = []
         for key, judge in best_option.items():
             if judge == "LB":
                 self._LBS.append(key)
@@ -265,20 +267,20 @@ class RecordManager(object):
         return True
 
     def generate_summary(self):
-        self.print("=" * self._print_len)
-        self.print("Total Epoch: %d" % self.records["Epoch"].val)
-        self.print("Start Time: " + str(self._init_time))
-        self.print("Time Elapsed: " + str(datetime.now() - self._init_time))
+        self.print(self.record_type, "=" * self._print_len)
+        self.print(self.record_type, "Total Epoch: %d" % self.records["Epoch"].val)
+        self.print(self.record_type, "Start Time: " + str(self._init_time))
+        self.print(self.record_type, "Time Elapsed: " + str(datetime.now() - self._init_time))
 
         if self.best_option is not None:
-            self.print("Best Records: ")
+            self.print(self.record_type, "Best Records: ")
             for key, val in self.best_records.items():
                 if key in ["Epoch", "Iter"]:
-                    self.print("- %s: %d" % (key, val))
+                    self.print(self.record_type, "- %s: %d" % (key, val))
                 if key in self.best_option.keys():
-                    self.print("- %s: %.4f" % (key, val))
+                    self.print(self.record_type, "- %s: %.4f" % (key, val))
 
-        self.print("-" * self._print_len)
+        self.print(self.record_type, "-" * self._print_len)
 
     def save_log(self):
         if self.save_path is not None:
@@ -424,9 +426,44 @@ class RecordManager(object):
             pass
         return type(val), val
 
-    @staticmethod
-    def check_dict(dict_record):
-        if "Epoch" not in dict_record.keys():
-            raise ValueError("Record should have 'Epoch' as a key.")
-        if "Iter" not in dict_record.keys():
-            raise ValueError("Record should have 'Iter' as a key.")
+    def state_dict(self):
+        records = OrderedDict()
+        for key in self.records.keys():
+            records[key] = self.records[key].state_dict()
+        
+        state_dict = OrderedDict(class_name=self.__class__.__name__,
+                                 records=records,
+                                 record_type=self.record_type,
+                                 best_records=self.best_records,
+                                 best_option=self.best_option,
+                                 log=self.log,
+                                 count=self.count,
+                                 _init_head=self._init_head,
+                                 _init_time=self._init_time,
+                                 _progress_start_time=self._progress_start_time,
+                                 _progress_end_time=self._progress_end_time,
+                                 _progress_times=self._progress_times,
+                                 _spinner=self._spinner,
+                                 save_path=self.save_path,
+                                 _LBS=self._LBS,
+                                 _HBS=self._HBS,
+                                 _LBOS=self._LBOS,
+                                 _HBOS=self._HBOS,
+                                )
+        return state_dict
+        
+    def load_state_dict(self, state_dict):
+        assert state_dict['class_name'] == self.__class__.__name__
+        for key in state_dict.keys():
+            if key in ['class_name']:
+                continue
+            elif key in ['records']:
+                records = OrderedDict()
+                records_dict = state_dict['records']
+                for record_key in records_dict.keys():
+                    records[record_key] = globals()[records_dict[record_key]['class_name']](None)
+                    records[record_key].load_state_dict(records_dict[record_key])
+                self.records = records
+            else:
+                setattr(self, key, state_dict[key])
+        return True
