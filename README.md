@@ -30,7 +30,7 @@ _Citation:_
 }
 ```
 
-
+_Benchmark Notion:_ https://harry24k.notion.site/harry24k/958ba2d81d194c1fa86accf65c1f6b9e?v=e02792dc2e7e47c697ff6b4a2dfe1a54
 
 
 
@@ -112,7 +112,17 @@ rmodel.eval_rob_accuracy_pgd(test_loader, eps, alpha, steps)  # PGD accuracy
 
 ## Pre-trained models
 
-Here are pre-trained 12 models: [URL](https://drive.google.com/drive/folders/1JoMWfAqXuvROyBbPX1KxPTro7i8LCNLo).
+Through [our notion](https://harry24k.notion.site/harry24k/958ba2d81d194c1fa86accf65c1f6b9e?v=e02792dc2e7e47c697ff6b4a2dfe1a54), you can directly download our pretrained models.
+```python
+from mair.hub import load_pretrained
+rmodel = load_pretrained("CIFAR10_ResNet18_AT(eps=8, alpha=2, steps=10)", flag='Best', save_dir="./")
+```
+
+Please refer to [demo](https://github.com/Harry24k/MAIR/blob/main/demos/Load%20Pretrained%20Model.ipynb).
+
+
+
+Or you can use [Google-drive](https://drive.google.com/drive/folders/1JoMWfAqXuvROyBbPX1KxPTro7i8LCNLo).
 
 In each folder, we upload four different files:
 
@@ -128,6 +138,13 @@ rmodel.load_dict('./models/.../best.pth')
 ```
 
 We are excited to share modes with the community, but we've run into a storage limitation on Google Drive. Any help would be greatly appreciated!
+
+
+
+## Contribution
+
+We welcome contribution to MAIR in many forms :smiley:.
+Especially, we are looking for adding diverse adversarial training methods beyond AT, TRADES, MART.
 
 
 
