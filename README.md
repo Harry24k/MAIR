@@ -112,9 +112,61 @@ rmodel.eval_rob_accuracy_pgd(test_loader, eps, alpha, steps)  # PGD accuracy
 
 
 
-## Pre-trained models
+## Adversarial Benchmarks & Pre-trained models
 
-Through [our notion](https://harry24k.notion.site/harry24k/958ba2d81d194c1fa86accf65c1f6b9e?v=e02792dc2e7e47c697ff6b4a2dfe1a54), you can directly download and use our pretrained models.
+Here is our (selected) benchmark on popular techniques in adversarial training frameworks.
+
+Note that all robustness (or robust accuracy) are measured on CIFAR-10 test dataset against PGD10.
+Therefore, we should aware that some models might exhibit over-estimated robustness, which should be further verified w/ stronger attacks such as AutoAttack.
+
+Through [our notion](https://harry24k.notion.site/harry24k/958ba2d81d194c1fa86accf65c1f6b9e?v=e02792dc2e7e47c697ff6b4a2dfe1a54), you can check more detailed benchmarks.
+
+### ResNet
+
+| Method | Architecture |  AWP | Extra Data | Best Robustness | **Remark** |
+| :----: | :----------: | :---: | :---------: | ----------: | :--------: |
+|   AT   |   ResNet18   |  :x: |        :x: | 52.73 |            |
+|  MART  |   ResNet18   |  :x: |        :x: | 54.73 |            |
+| TRADES |   ResNet18   |  :x: |        :x: | 53.47 |            |
+|   AT   |   ResNet18   | ✔️ |        :x: | 55.52 |            |
+|  MART  |   ResNet18   | ✔️ |        :x: | 57.64 |            |
+| TRADES |   ResNet18   | ✔️ |        :x: | 55.91 |            |
+|   AT   |   ResNet18   | ✔️ |      ✔️ | 56.52 |            |
+|  MART  |   ResNet18   | ✔️ |      ✔️ | **57.93** | :crown: |
+| TRADES |   ResNet18   | ✔️ |      ✔️ | 55.51 |            |
+
+### WRN28-10
+
+| Method | Architecture |  AWP | Extra Data | Best Robustness | **Remark** |
+| :----: | :----------: | :---: | :---------: | ----------: | :--------: |
+|   AT   |   WRN28-10   |  :x: |        :x: | 56.00 |            |
+|  MART  |   WRN28-10   |  :x: |        :x: | 57.69 |            |
+| TRADES |   WRN28-10   |  :x: |        :x: |           56.81 |            |
+|   AT   |   WRN28-10   | ✔️ |        :x: |           58.70 |            |
+|  MART  |   WRN28-10   | ✔️ |        :x: |           60.39 |            |
+| TRADES |   WRN28-10   | ✔️ |        :x: |           59.50 |            |
+|   AT   |   WRN28-10   | ✔️ |      ✔️ | 62.65 |            |
+|  MART  |   WRN28-10   | ✔️ |      ✔️ | **63.51** | :crown: |
+| TRADES |   WRN28-10   | ✔️ |      ✔️ |           61.81 |            |
+
+### WRN34-10
+
+| Method | Architecture |  AWP | Extra Data | Best Robustness | **Remark** |
+| :----: | :----------: | :---: | :---------: | ----------: | :--------: |
+|   AT   |   WRN34-10   |  :x: |        :x: |           56.19 |            |
+|  MART  |   WRN34-10   |  :x: |        :x: |           57.56 |            |
+| TRADES |   WRN34-10   |  :x: |        :x: |           56.67 |            |
+|   AT   |   WRN34-10   | ✔️ |        :x: |           59.63 |            |
+|  MART  |   WRN34-10   | ✔️ |        :x: |           10.00 |            |
+| TRADES |   WRN34-10   | ✔️ |        :x: |           59.50 |            |
+|   AT   |   WRN34-10   | ✔️ |      ✔️ |           63.30 |            |
+|  MART  |   WRN34-10   | ✔️ |      ✔️ |       **64.04** | :crown: |
+| TRADES |   WRN34-10   | ✔️ |      ✔️ |           62.07 |            |
+
+
+
+Based on [our notion](https://harry24k.notion.site/harry24k/958ba2d81d194c1fa86accf65c1f6b9e?v=e02792dc2e7e47c697ff6b4a2dfe1a54), we built a hub module to support the direct use of our pretrained models.
+
 ```python
 from mair.hub import load_pretrained
 rmodel = load_pretrained("CIFAR10_ResNet18_AT(eps=8, alpha=2, steps=10)", flag='Best', save_dir="./")
