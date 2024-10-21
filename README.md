@@ -15,9 +15,9 @@
 
 > "Make your AI Robust."
 
-_MAIR_  is a PyTorch-based adversarial training framework. The goal of MAIR is to (1) _provide an easy implementation of adversarial training methods_ and (2) _make it easier to evaluate the adversarial robustness of deep learning models_.
+_MAIR_  is a PyTorch-based adversarial training framework. MAIR aims to (1) _provide easy implementation of adversarial training methods_ and (2) _make it easier to evaluate the adversarial robustness of deep learning models_.
 
-Adversarial training has become the de-facto standard method for improving the robustness of models against adversarial examples. However, during the writing of [our paper](https://openreview.net/forum?id=AGVBqJuL0T), we realized that there is no framework integrating adversarial training methods. Therefore, to promote reproducibility and transparency in the field of deep learning, we integrated the algorithms, tools, and pre-trained models. 
+Adversarial training has become the de facto standard method for improving the robustness of models against adversarial examples. However, while writing our paper **"Fantastic Robustness Measures: The Secrets of Robust Generalization"** [[Paper](https://openreview.net/forum?id=AGVBqJuL0T), [Article](https://trustworthyai.co.kr/article/2024/fantastic-eng/)], we realized that there is no framework integrating adversarial training methods. Therefore, to promote reproducibility and transparency in deep learning, we integrated the algorithms, tools, and pre-trained models. 
 
 _Citation:_ If you use this package, please cite the following BibTex ([GoogleScholar](https://scholar.google.com/scholar?hl=ko&as_sdt=0%2C5&q=Fantastic+Robustness+Measures+The+Secrets+of+Robust+Generalization&btnG=)):
 ```
