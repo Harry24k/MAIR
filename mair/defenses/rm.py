@@ -216,13 +216,16 @@ class RecordManager(object):
     def check_best(self, dict_record):
         if self.best_option is None:
             return False
+        
+        if self.count == 0:
+            return False
 
         if dict_record is None:
             return False
         else:
             for key in self._LBS + self._HBS + self._LBOS + self._HBOS:
                 if dict_record.get(key) is None:
-                    return False
+                    raise ValueError("%s is not in records."%key)
 
         if self.best_records is not None:
             flag_tie = True
@@ -230,6 +233,8 @@ class RecordManager(object):
             for key in self._LBS:
                 best_value = self.best_records[key]
                 curr_value = dict_record[key]
+                if np.isnan(curr_value):
+                    return False
                 if best_value < curr_value:
                     return False
                 elif best_value > curr_value:
@@ -241,6 +246,8 @@ class RecordManager(object):
             for key in self._HBS:
                 best_value = self.best_records[key]
                 curr_value = dict_record[key]
+                if np.isnan(curr_value):
+                    return False
                 if best_value > curr_value:
                     return False
                 elif best_value < curr_value:

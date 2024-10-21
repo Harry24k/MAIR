@@ -1,6 +1,7 @@
 import os
 import logging
 from collections import OrderedDict
+import numpy as np
 
 import torch
 from torch.optim import *
@@ -151,25 +152,36 @@ class Trainer:
                         self.record_during_eval()
                     self.add_record_item("lr", self.optimizer.param_groups[0]["lr"])
                     self.rm.add(self.dict_record)
+                    
                     # If record added, save dicts.
+                    if self.rm.check_best(self.dict_record):
+                        self.save_dict(save_path, save_type, is_best=True)
+
+                # Save dicts
+                if save_path is not None:
+                    is_save_condition = self._check_run_condition(
+                        save_type, is_last_batch
+                    )
+                    # Save if condition is satisfied or best or end of the epoch.
+                    if is_save_condition or is_last_batch:
+                        self.save_dict(save_path, save_type, is_best=False)
 
                 # Update scheduler
                 if self._check_run_condition(self.scheduler_type, is_last_batch):
                     self.scheduler.step()
 
-                # Save dicts
-                if save_path is not None:
-                    is_best = self.rm.check_best(self.dict_record)
-                    is_save_condition = self._check_run_condition(
-                        save_type, is_last_batch
-                    )
-                    # Save if condition is satisfied or best or end of the epoch.
-                    if is_save_condition or is_best or is_last_batch:
-                        self.save_dict(save_path, save_type, is_best=is_best)
-
                 # Check number of iterations
                 if is_last_batch:
                     break
+
+            # Check nan values in records and terminate if it is true.
+            # isnan = False
+            # for key in self.rm.records.keys():
+            #     if np.isnan(list(self.rm.records[key].history.values())[-1]):
+            #         isnan = True
+            #         break
+            # if isnan:
+            #     break
 
             start_iter = 0  # For refit
 
