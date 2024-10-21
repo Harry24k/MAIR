@@ -31,7 +31,7 @@ _Citation:_ If you use this package, please cite the following BibTex ([GoogleSc
 }
 ```
 
-_Benchmarks on several adversarially trained models are available at [our notion](https://harry24k.notion.site/harry24k/958ba2d81d194c1fa86accf65c1f6b9e?v=e02792dc2e7e47c697ff6b4a2dfe1a54)._ 
+_Benchmarks on adversarially trained models are available at [our notion](https://harry24k.notion.site/harry24k/958ba2d81d194c1fa86accf65c1f6b9e?v=e02792dc2e7e47c697ff6b4a2dfe1a54)._ 
 
 
 
@@ -115,52 +115,50 @@ rmodel.eval_rob_accuracy_pgd(test_loader, eps, alpha, steps)  # PGD accuracy
 
 Here is our (selected) benchmark on popular techniques in adversarial training frameworks.
 
-Note that all robustness (or robust accuracy) are measured on CIFAR-10 test dataset against PGD10.
-Therefore, we should aware that some models might exhibit over-estimated robustness, which should be further verified w/ stronger attacks such as AutoAttack.
-
+Note that all robustness (or robust accuracy) are measured on CIFAR-10 test dataset.
 Through [our notion](https://harry24k.notion.site/harry24k/958ba2d81d194c1fa86accf65c1f6b9e?v=e02792dc2e7e47c697ff6b4a2dfe1a54), you can check more detailed benchmarks.
 
 ### ResNet
 
-| Method | Architecture |  AWP | Extra Data | Best Robustness | **Remark** |
-| :----: | :----------: | :---: | :---------: | ----------: | :--------: |
-|   AT   |   ResNet18   |  :x: |        :x: | 52.73 |            |
-|  MART  |   ResNet18   |  :x: |        :x: | 54.73 |            |
-| TRADES |   ResNet18   |  :x: |        :x: | 53.47 |            |
-|   AT   |   ResNet18   | ✔️ |        :x: | 55.52 |            |
-|  MART  |   ResNet18   | ✔️ |        :x: | 57.64 |            |
-| TRADES |   ResNet18   | ✔️ |        :x: | 55.91 |            |
-|   AT   |   ResNet18   | ✔️ |      ✔️ | 56.52 |            |
-|  MART  |   ResNet18   | ✔️ |      ✔️ | **57.93** | :crown: |
-| TRADES |   ResNet18   | ✔️ |      ✔️ | 55.51 |            |
+| Method | Architecture |  AWP | Extra Data | PGD10 | AutoAttack | **Remark** |
+| :----: | :----------: | :---: | :---------: | ----------: | --------: | :----------: |
+|   AT   |   ResNet18   |  :x: |        :x: | 52.73 | 48.67 |            |
+|  MART  |   ResNet18   |  :x: |        :x: | 54.73 | 47.51 |            |
+| TRADES |   ResNet18   |  :x: |        :x: | 53.47 | 49.45 |            |
+|   AT   |   ResNet18   | ✔️ |        :x: | 55.52 | 50.80 |            |
+|  MART  |   ResNet18   | ✔️ |        :x: | 57.64 | 50.03 |            |
+| TRADES |   ResNet18   | ✔️ |        :x: | 55.91 | **51.62** | :crown: |
+|   AT   |   ResNet18   | ✔️ |      ✔️ | 56.52 | 51.14 |            |
+|  MART  |   ResNet18   | ✔️ |      ✔️ | **57.93** | 50.28 |  |
+| TRADES |   ResNet18   | ✔️ |      ✔️ | 55.51 | 51.08 |            |
 
 ### WRN28-10
 
-| Method | Architecture |  AWP | Extra Data | Best Robustness | **Remark** |
-| :----: | :----------: | :---: | :---------: | ----------: | :--------: |
-|   AT   |   WRN28-10   |  :x: |        :x: | 56.00 |            |
-|  MART  |   WRN28-10   |  :x: |        :x: | 57.69 |            |
-| TRADES |   WRN28-10   |  :x: |        :x: |           56.81 |            |
-|   AT   |   WRN28-10   | ✔️ |        :x: |           58.70 |            |
-|  MART  |   WRN28-10   | ✔️ |        :x: |           60.39 |            |
-| TRADES |   WRN28-10   | ✔️ |        :x: |           59.50 |            |
-|   AT   |   WRN28-10   | ✔️ |      ✔️ | 62.65 |            |
-|  MART  |   WRN28-10   | ✔️ |      ✔️ | **63.51** | :crown: |
-| TRADES |   WRN28-10   | ✔️ |      ✔️ |           61.81 |            |
+| Method | Architecture |  AWP | Extra Data |     PGD10 | AutoAttack | **Remark** |
+| :----: | :----------: | :---: | :---------: | ----------: | --------: | :----------: |
+|   AT   |   WRN28-10   |  :x: |        :x: | 56.00 | 52.05 |            |
+|  MART  |   WRN28-10   |  :x: |        :x: | 57.69 | 51.29 |            |
+| TRADES |   WRN28-10   |  :x: |        :x: |           56.81 | 52.81 |            |
+|   AT   |   WRN28-10   | ✔️ |        :x: |           58.70 | 54.3 |            |
+|  MART  |   WRN28-10   | ✔️ |        :x: |           60.39 | 54.46 |            |
+| TRADES |   WRN28-10   | ✔️ |        :x: |           59.50 | 55.85 |            |
+|   AT   |   WRN28-10   | ✔️ |      ✔️ | 62.65 | **58.14** | :crown: |
+|  MART  |   WRN28-10   | ✔️ |      ✔️ | **63.51** | 56.54 |  |
+| TRADES |   WRN28-10   | ✔️ |      ✔️ |           61.81 | 57.44 |            |
 
 ### WRN34-10
 
-| Method | Architecture |  AWP | Extra Data | Best Robustness | **Remark** |
-| :----: | :----------: | :---: | :---------: | ----------: | :--------: |
-|   AT   |   WRN34-10   |  :x: |        :x: |           56.19 |            |
-|  MART  |   WRN34-10   |  :x: |        :x: |           57.56 |            |
-| TRADES |   WRN34-10   |  :x: |        :x: |           56.67 |            |
-|   AT   |   WRN34-10   | ✔️ |        :x: |           59.63 |            |
-|  MART  |   WRN34-10   | ✔️ |        :x: |           10.00 |            |
-| TRADES |   WRN34-10   | ✔️ |        :x: |           59.50 |            |
-|   AT   |   WRN34-10   | ✔️ |      ✔️ |           63.30 |            |
-|  MART  |   WRN34-10   | ✔️ |      ✔️ |       **64.04** | :crown: |
-| TRADES |   WRN34-10   | ✔️ |      ✔️ |           62.07 |            |
+| Method | Architecture |  AWP | Extra Data | PGD10 | AutoAttack | **Remark** |
+| :----: | :----------: | :---: | :---------: | ----------: | --------: | :----------: |
+|   AT   |   WRN34-10   |  :x: |        :x: |           56.19 | 52.68 |            |
+|  MART  |   WRN34-10   |  :x: |        :x: |           57.56 | 51.89 |            |
+| TRADES |   WRN34-10   |  :x: |        :x: |           56.67 | 53.08 |            |
+|   AT   |   WRN34-10   | ✔️ |        :x: |           59.63 | 55.66 |            |
+|  MART  |   WRN34-10   | ✔️ |        :x: |           10.00 | 10.00 |            |
+| TRADES |   WRN34-10   | ✔️ |        :x: |           59.50 | 56.07 |            |
+|   AT   |   WRN34-10   | ✔️ |      ✔️ |           63.30 | **58.65** | :crown: |
+|  MART  |   WRN34-10   | ✔️ |      ✔️ |       **64.04** | 57.40 |  |
+| TRADES |   WRN34-10   | ✔️ |      ✔️ |           62.07 | 57.75 |            |
 
 
 
