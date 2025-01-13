@@ -58,7 +58,7 @@ class MART(AdvTrainer):
         ) + F.nll_loss(torch.log(1.0001 - probs_adv + 1e-12), new_y, reduction="none")
 
         # Caculate KLLoss
-        probs_clean = F.softmax(logits_clean, dim=1)
+        probs_clean = torch.clamp(F.softmax(logits_clean, dim=1), min=1e-12)
         log_prob_adv = torch.log(probs_adv + 1e-12)
         loss_kl = torch.sum(
             nn.KLDivLoss(reduction="none")(log_prob_adv, probs_clean), dim=1
